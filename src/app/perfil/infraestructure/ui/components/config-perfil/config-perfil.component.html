@@ -1,0 +1,60 @@
+<div class="grid">
+    <div class="col">
+        <div class="card">
+            <div class="compania">
+                <div class="grid">
+                    <div class="col-12">
+                        <div class="encabezado" style="border-bottom: 1px solid rgb(212, 212, 212);">
+                            <div>
+                                <img id="compania-logo" class="compania-logo" src="assets/layout/images/logo.svg"
+                                    alt="compania-logo" />
+                            </div>
+                            <div class="flex flex-column justify-content-evenly ml-5"
+                                style="padding: 5px; width: 100%; ">
+                                <div>
+                                    <div class="compania-titulo">TESLA</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid mt-3" style="border-bottom: 1px solid rgb(212, 212, 212);">
+                            <div class="col-12 md:col-4" style="height:350px">
+                                <p-galleria [(value)]="images" [numVisible]="5" [autoPlay] = "true" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%'}">
+                                    <ng-template pTemplate="item" let-item>
+                                        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" height="300px" />
+                                    </ng-template>
+                                </p-galleria>
+                            </div>
+                            <div class="col-12 md:col-8 flex flex-column justify-content-evenly">
+                                <div>
+                                    <h5><b>Somos una empresa</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                        Mollitia
+                                        molestias corporis, enim quaerat fugiat accusantium aspernatur qui repellat rerum
+                                        modi culpa repellendus
+                                        voluptatem necessitatibus quas vel. Quae doloribus quaerat at.</h5>
+                                    <h5><b>Buscamos</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                            Mollitia
+                                            molestias corporis, enim quaerat fugiat accusantium aspernatur qui repellat rerum
+                                            modi culpa repellendus
+                                            voluptatem necessitatibus quas vel. Quae doloribus quaerat at.</h5>
+                                </div>
+                                <div>
+                                    <h5><b>Contactanos</b></h5>
+                                    <a href="http://compañia.com">http://compañia.com</a>
+                                    <div>Dirección: 9137 3rd Lane California City</div>
+                                    <div>CA 93504, U.S.A.</div>
+                                    <div class="flex flex-row">
+                                        <h6 class="mr-2"><b>Redes sociales</b></h6>
+                                        <i class="pi pi-twitter mr-2" style="font-size: 1.5rem"></i>
+                                        <i class="pi pi-youtube mr-2" style="font-size: 1.5rem"></i>
+                                        <i class="pi pi-facebook mr-2" style="font-size: 1.5rem"></i>
+                                        <i class="pi pi-file-pdf mr-2" style="font-size: 1.5rem"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

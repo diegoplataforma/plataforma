@@ -19,6 +19,10 @@ import { AppHelpComponent } from './pages/app.help.component';
                     { path: '', component: DashboardDemoComponent },
                     { path: 'pages/help', component: AppHelpComponent },
                     { path: 'pages/empty', component: EmptyDemoComponent },
+                    {
+                        path: 'perfil',
+                        loadChildren: () => import( './perfil/perfil.module').then((m) => m.PerfilModule),
+                    },
                 ]
             },
             {

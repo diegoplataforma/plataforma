@@ -171,7 +171,8 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
     TreeTableModule,
     VirtualScrollerModule,
     ImageModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    GalleriaModule
   ]
 })
 export class PrimeNgModule { }
