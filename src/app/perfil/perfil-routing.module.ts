@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule, Routes } from '@angular/router';
 import { PrincipalPerfilComponent } from './infraestructure/ui/pages/principal-perfil/principal-perfil.component';
-import { ConfigPerfilComponent } from './infraestructure/ui/components/config-perfil/config-perfil.component';
+import { VerPerfilComponent } from './infraestructure/ui/components/ver-perfil/ver-perfil.component';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ConfigPerfilComponent
+        component: VerPerfilComponent
       }
     ]
   },

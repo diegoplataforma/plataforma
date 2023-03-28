@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+import { DialogService } from 'primeng/dynamicdialog';
+import { EditarPerfilComponent } from '../editar-perfil/editar-perfil.component';
+import { Perfil } from '../../../../domain/models/perfil';
 
 @Component({
-  selector: 'app-config-perfil',
-  templateUrl: './config-perfil.component.html',
-  styleUrls: ['./config-perfil.component.scss']
+  selector: 'app-ver-perfil',
+  templateUrl: './ver-perfil.component.html',
+  styleUrls: ['./ver-perfil.component.scss']
 })
-export class ConfigPerfilComponent {
+export class VerPerfilComponent {
   images: any[] = [
     {
         itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg',
@@ -113,4 +116,20 @@ export class ConfigPerfilComponent {
           numVisible: 1
       }
   ];
+
+  perfil: Perfil = { nombre: "Tesla"} as Perfil
+
+  constructor(private dialogService: DialogService) { }
+
+  editarPerfil() {
+      this.dialogService.open(EditarPerfilComponent, {
+        header: "Editar Perfil",
+        height: "50vh",
+        width: "50vw",
+        data: {
+            perfil: this.perfil
+        }
+      })
+  }
+
 }

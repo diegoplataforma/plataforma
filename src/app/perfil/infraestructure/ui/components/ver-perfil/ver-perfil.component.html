@@ -12,8 +12,11 @@
                             <div class="flex flex-column justify-content-evenly ml-5"
                                 style="padding: 5px; width: 100%; ">
                                 <div>
-                                    <div class="compania-titulo">TESLA</div>
+                                    <div class="compania-titulo">{{ this.perfil.nombre | uppercase }}</div>
                                 </div>
+                            </div>
+                            <div>
+                                <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="this.editarPerfil()"></button>
                             </div>
                         </div>
                         <div class="grid mt-3" style="border-bottom: 1px solid rgb(212, 212, 212);">
