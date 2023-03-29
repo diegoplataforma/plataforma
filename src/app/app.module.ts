@@ -66,7 +66,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideAuth,getAuth } from '@angular/fire/auth';
 import { AutenticacionRepository } from './autenticacion/domain/repositories/autenticacion-repository';
 import { AutenticacionWebRepository } from './autenticacion/domain/repositories/autenticacion-web-repository';
 import { CerrarSesionUseCase } from './autenticacion/application/cerrar-sesion/cerrar-sesion-use-case';
@@ -82,7 +82,7 @@ import { CerrarSesionUseCase } from './autenticacion/application/cerrar-sesion/c
         FullCalendarModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideFirestore(() => getFirestore()),
-
+        
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -140,8 +140,8 @@ import { CerrarSesionUseCase } from './autenticacion/application/cerrar-sesion/c
         {
             provide: AutenticacionRepository,
             useClass: AutenticacionWebRepository
-        },
-        CerrarSesionUseCase
+          },
+          CerrarSesionUseCase
     ],
     bootstrap: [AppComponent]
 })

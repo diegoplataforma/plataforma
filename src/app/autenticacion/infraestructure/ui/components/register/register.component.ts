@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegistrarUsuarioUseCase } from 'src/app/autenticacion/application/registrar-usuario/registrar-usuario-use-case';
 import { CorreoYContrasena } from 'src/app/autenticacion/domain/models/correoYcontrasena';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-register',

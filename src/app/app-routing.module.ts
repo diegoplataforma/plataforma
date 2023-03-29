@@ -21,6 +21,10 @@ import { canActivate, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
                     { path: '', component: DashboardDemoComponent },
                     { path: 'pages/help', component: AppHelpComponent },
                     { path: 'pages/empty', component: EmptyDemoComponent },
+                    {
+                        path: 'perfil',
+                        loadChildren: () => import( './perfil/perfil.module').then((m) => m.PerfilModule),
+                    },
                 ]
             },
             {

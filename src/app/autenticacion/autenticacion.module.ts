@@ -49,7 +49,9 @@ import { CerrarSesionUseCase } from './application/cerrar-sesion/cerrar-sesion-u
     CerrarSesionUseCase
   ]
 })
+
 export class AutenticacionModule { }
+
 export function httpTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
