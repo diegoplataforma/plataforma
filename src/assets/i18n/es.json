@@ -1,5 +1,19 @@
 {
     "label": {
-        "inicio_sesion" : "Iniciar Sesión"
+        "inicio_sesion": "Iniciar Sesión",
+        "registrarse": "Crear Cuenta",
+        "correo": "Correo",
+        "correo_placeholder": "Ingrese su correo",
+        "contrasena" : "Contraseña",
+        "confirmar_contrasena" : "Confirmar contraseña",
+        "contrasena_placeholder" : "Ingrese su contraseña",
+        "continuar" : "Continuar",
+        "nombres" : "Nombres",
+        "nombres_placeholder" : "Ingrese sus nombres",
+        "apellidos" : "Apellidos",
+        "apellidos_placeholder" : "Ingrese sus apellidos",
+        "quien_eres" : "¿Quién eres?",
+        "olvido_contrasena" : "¿Olvidó su contraseña?",
+        "login_mensaje" : "Bienvenido, por favor use este formulario para iniciar sesión."
     }
 }

@@ -66,6 +66,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { AutenticacionRepository } from './autenticacion/domain/repositories/autenticacion-repository';
+import { AutenticacionWebRepository } from './autenticacion/domain/repositories/autenticacion-web-repository';
+import { CerrarSesionUseCase } from './autenticacion/application/cerrar-sesion/cerrar-sesion-use-case';
 
 @NgModule({
     imports: [
@@ -86,7 +90,9 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
                 deps: [HttpClient]
             },
             defaultLanguage: 'es'
-        })
+        }),
+        //Conexion la autenticacion
+        provideAuth(() => getAuth())
     ],
     declarations: [
         AppComponent,
@@ -130,7 +136,12 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, MenuService, BreadcrumbService
+        PhotoService, ProductService, MenuService, BreadcrumbService,
+        {
+            provide: AutenticacionRepository,
+            useClass: AutenticacionWebRepository
+          },
+          CerrarSesionUseCase
     ],
     bootstrap: [AppComponent]
 })

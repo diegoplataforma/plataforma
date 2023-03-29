@@ -2149,6 +2149,13 @@ body a {
   margin-bottom: 40px;
   color: #3ca4e7;
 }
+
+.login-body .login-card .login-content .createaccount-container {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #3ca4e7;
+}
+
 .login-body .login-card .login-content button {
   width: 100%;
   margin-bottom: 60px;

@@ -8,6 +8,7 @@ import { AppErrorComponent } from './pages/app.error.component';
 import { AppAccessdeniedComponent } from './pages/app.accessdenied.component';
 import { AppLoginComponent } from './pages/app.login.component';
 import { AppHelpComponent } from './pages/app.help.component';
+import { canActivate, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { AppHelpComponent } from './pages/app.help.component';
         RouterModule.forRoot([
             {
                 path: '', component: AppMainComponent,
+                ...canActivate(() => redirectUnauthorizedTo(['auth/login'])),
                 children: [
                     { path: '', component: DashboardDemoComponent },
                     { path: 'pages/help', component: AppHelpComponent },
@@ -26,8 +28,8 @@ import { AppHelpComponent } from './pages/app.help.component';
                 ]
             },
             {
-                path: 'login',
-                loadChildren: () => import( './autenticacion/autenticacion.module').then((m) => m.AutenticacionModule),
+                path: 'auth',
+                loadChildren: () => import('./autenticacion/autenticacion.module').then((m) => m.AutenticacionModule),
             },
             { path: 'error', component: AppErrorComponent },
             { path: 'access', component: AppAccessdeniedComponent },
