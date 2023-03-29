@@ -5,6 +5,20 @@
     </div>
     <div class="p-fluid col-12 md:col-4">
         <label for="nombre" class="form-label">Quiénes somos</label>
-        <input pInputText [(ngModel)]="this.perfil.quienesSomos" type="text">
+        <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="this.perfil.quienesSomos" [autoResize]="true"></textarea>
+    </div>
+    <div class="p-fluid col-12 md:col-4">
+        <label for="nombre" class="form-label">Qué buscamos</label>
+        <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="this.perfil.buscamos" [autoResize]="true"></textarea>
+    </div>
+    <div class="p-fluid col-12">
+        <h5>Imagenes</h5>
+        <div *ngIf="images" class="grid" style="max-width: 800px;">
+            <div *ngFor="let image of images; let index = index" class="col-2" key="index">
+                <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer"/>
+            </div>
+        </div>
+        <button pButton type="button" class="p-button-raised p-button-rounded" icon="pi pi-plus" (click) = "agregarImagen()" ></button>
+        <input #file type="file" name="archivo" id="archivo" hidden (change) = "this.agregarImagenArchivo($event)">
     </div>
 </div>
