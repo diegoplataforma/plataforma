@@ -1,0 +1,89 @@
+<div class="login-body">
+    <div class="mobile-banner">
+        <img src="../../../../../../assets/layout/images/logo-mobile.svg" alt="prestige-layout" />
+    </div>
+    <div class="login-panel">
+        <div class="logo">
+            <img src="../../../../../../assets/layout/images/logo.svg" alt="prestige-layout" />
+        </div>
+    </div>
+
+    <div class="login-card">
+        <div class="top-border"></div>
+        <div class="login-content">
+            <div [hidden]="crearCuenta" class="fadein animation-duration-1000">
+                <h1>{{'label.registrarse' | translate }}</h1>
+                
+                <h5 class="text-center mb-4">{{'label.quien_eres' | translate }}</h5>
+                <div class="grid">
+                    <div class="col-6">
+                        <div class="field-radiobutton">
+                            <p-radioButton name="city" value="Chicago" [(ngModel)]="valTipoUsuario"
+                                id="city1"></p-radioButton>
+                            <label for="city1" style="margin-bottom: 0px;">Oferta</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="field-radiobutton">
+                            <p-radioButton name="city" value="Los Angeles" [(ngModel)]="valTipoUsuario"
+                                id="city2"></p-radioButton>
+                            <label for="city2" style="margin-bottom: 0px;">Demanda</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="username-container">
+                    <label>{{'label.correo' | translate }}</label>
+                    <div class="login-input">
+                        <input type="text" autocomplete="off" placeholder="{{'label.correo_placeholder' | translate }}"
+                            pInputText>
+                    </div>
+                </div>
+                <div class="password-container">
+                    <label>{{'label.contrasena' | translate }}</label>
+                    <div class="login-input">
+                        <input type="password" autocomplete="off"
+                            placeholder="{{'label.contrasena_placeholder' | translate }}" pInputText>
+                    </div>
+                </div>
+                <div class="password-container">
+                    <label>{{'label.confirmar_contrasena' | translate }}</label>
+                    <div class="login-input">
+                        <input type="password" autocomplete="off"
+                            placeholder="{{'label.contrasena_placeholder' | translate }}" pInputText>
+                    </div>
+                </div>
+                <button pButton pRipple type="button" icon="pi pi-chevron-right" class="p-button-rounded mr-2 mb-2" (click)="toggleFormularioRegistro()" style="width: 2.357rem;"></button>
+            </div>
+
+
+            <div [hidden]="!crearCuenta" class="fadein animation-duration-1000">
+                <button pButton pRipple type="button" icon="pi pi-chevron-left" class="p-button-rounded mr-2 mb-2" (click)="toggleFormularioRegistro()" style="width: 2.357rem;"></button>
+               
+                <p></p>
+                <div class="username-container">
+                    <label>{{'label.nombres' | translate }}</label>
+                    <div class="login-input">
+                        <input type="text" autocomplete="off" placeholder="{{'label.nombres_placeholder' | translate }}"
+                            pInputText>
+                    </div>
+                </div>
+                <div class="password-container">
+                    <label>{{'label.apellidos' | translate }}</label>
+                    <div class="login-input">
+                        <input type="password" autocomplete="off"
+                            placeholder="{{'label.apellidos_placeholder' | translate }}" pInputText>
+                    </div>
+                </div>
+                <div>
+                    <button pButton type="button" label="{{'label.registrarse' | translate }}"
+                        style="width: 100%;"></button>
+                </div>
+            </div>
+
+            <div class="createaccount-container">
+                <a routerLink="/auth/login" class="forget-password">{{'label.inicio_sesion' | translate }}</a>
+            </div>
+        </div>
+    </div>
+</div>

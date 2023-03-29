@@ -15,7 +15,7 @@
             </a>
             <ul class="fadeInDown">
                 <li>
-                    <a href="#" class="layout-topbar-icon">
+                    <a (click)="salir()" class="layout-topbar-icon">
                         <i class="topbar-icon pi pi-sign-out"></i>
                     </a>
                     <div class="layout-quickmenu-tooltip">
@@ -70,7 +70,7 @@
                             <span class="user-profile-role">Design Ops</span>
                         </div>
                         <a href="#" class="profile-detail-icon" (click)="app.onTopbarSubItemClick($event)">
-                            <i class="pi pi-sign-out"></i>
+                            <i (click)="salir()" class="pi pi-sign-out"></i>
                         </a>
                     </div>
                 </li>

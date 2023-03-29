@@ -1,35 +1,45 @@
 <div class="login-body">
     <div class="mobile-banner">
-        <img src="../../../../../../assets/layout/images/logo-mobile.svg" alt="prestige-layout"/>
+        <img src="../../../../../../assets/layout/images/logo-mobile.svg" alt="prestige-layout" />
     </div>
     <div class="login-panel">
         <div class="logo">
-            <img src="../../../../../../assets/layout/images/logo.svg" alt="prestige-layout"/>
+            <img src="../../../../../../assets/layout/images/logo.svg" alt="prestige-layout" />
         </div>
     </div>
 
     <div class="login-card">
         <div class="top-border"></div>
-        <div class="login-content">
-            <h1>Login</h1>
-            <p>Welcome, please use the form to sign-in.</p>
-            <div class="username-container">
-                <label>Username</label>
-                <div class="login-input">
-                    <input type="text" autocomplete="off" placeholder="Enter your username" pInputText>
+        <div class="login-content fadein animation-duration-1000">
+            <h1>{{'label.inicio_sesion' | translate }}</h1>
+            <p>{{'label.login_mensaje' | translate }}</p>
+            <form [formGroup]="formularioLogin" (ngSubmit)="onSubmit()">
+                <div class="username-container">
+                    <label>{{'label.correo' | translate }}</label>
+                    <div class="login-input">
+                        <input type="email" autocomplete="off" placeholder="{{'label.correo_placeholder' | translate }}"
+                            pInputText formControlName="email">
+                    </div>
                 </div>
-            </div>
-            <div class="password-container">
-                <label>Password</label>
-                <div class="login-input">
-                    <input type="password" autocomplete="off" placeholder="Enter your password" pInputText>
+                <div class="password-container">
+                    <label>{{'label.contrasena' | translate }}</label>
+                    <div class="login-input">
+                        <input type="password" autocomplete="off"
+                            placeholder="{{'label.contrasena_placeholder' | translate }}" pInputText
+                            formControlName="password">
+                    </div>
                 </div>
-            </div>
-            <div class="forgetpassword-container">
-                <a href="#" class="forget-password">Forget Password?</a>
-            </div>
-            <div>
-                <button pButton type="button" label="{{'label.inicio_sesion' | translate }}" style="width: 100%"></button>
+                <div class="forgetpassword-container">
+                    <a href="#" class="forget-password">{{'label.olvido_contrasena' | translate }}</a>
+                </div>
+
+                <div>
+                    <button pButton type="submit" label="{{'label.inicio_sesion' | translate }}"
+                        style="width: 100%"></button>
+                </div>
+            </form>
+            <div class="createaccount-container">
+                <a routerLink="/auth/register" class="forget-password">{{'label.registrarse' | translate }}</a>
             </div>
         </div>
     </div>

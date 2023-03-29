@@ -1,6 +1,13 @@
+import { UserCredential } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
-import { Usuario } from '../models/usuario';
+import { CorreoYContrasena } from '../models/correoYcontrasena';
+
 
 export abstract class AutenticacionRepository {
-    abstract iniciarSesion(username: string, password: string) : Observable<Usuario[]>;
+
+    abstract iniciarSesion(correoYcontrasena: CorreoYContrasena): Promise<UserCredential>;
+
+    abstract registrarUsuario(correoYcontrasena: CorreoYContrasena): Promise<UserCredential>;
+
+    abstract cerrarSesion(): Promise<void>;
 } 
