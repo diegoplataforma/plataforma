@@ -13,72 +13,122 @@
         <div class="login-content">
             <div [hidden]="crearCuenta" class="fadein animation-duration-1000">
                 <h1>{{'label.registrarse' | translate }}</h1>
-                
-                <h5 class="text-center mb-4">{{'label.quien_eres' | translate }}</h5>
-                <div class="grid">
-                    <div class="col-6">
-                        <div class="field-radiobutton">
-                            <p-radioButton name="city" value="Chicago" [(ngModel)]="valTipoUsuario"
-                                id="city1"></p-radioButton>
-                            <label for="city1" style="margin-bottom: 0px;">Oferta</label>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="field-radiobutton">
-                            <p-radioButton name="city" value="Los Angeles" [(ngModel)]="valTipoUsuario"
-                                id="city2"></p-radioButton>
-                            <label for="city2" style="margin-bottom: 0px;">Demanda</label>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="username-container">
-                    <label>{{'label.correo' | translate }}</label>
-                    <div class="login-input">
-                        <input type="text" autocomplete="off" placeholder="{{'label.correo_placeholder' | translate }}"
-                            pInputText>
+                <h5 class="text-center mb-4">{{'label.quien_eres' | translate }}</h5>
+                <form [formGroup]="primerFormularioRegistro">
+                    <div class="grid">
+                        <div class="col-6">
+                            <div class="field-radiobutton">
+                                <p-radioButton name="tipo" value="oferta" formControlName="tipo"
+                                    id="oferta"></p-radioButton>
+                                <label for="oferta" style="margin-bottom: 0px;">Oferta</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="field-radiobutton">
+                                <p-radioButton name="tipo" value="demanda" formControlName="tipo"
+                                    id="demanda"></p-radioButton>
+                                <label for="demanda" style="margin-bottom: 0px;">Demanda</label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="password-container">
-                    <label>{{'label.contrasena' | translate }}</label>
-                    <div class="login-input">
-                        <input type="password" autocomplete="off"
-                            placeholder="{{'label.contrasena_placeholder' | translate }}" pInputText>
+
+                    <div class="username-container">
+                        <label>{{'label.correo' | translate }}</label>
+                        <div class="login-input">
+                            <input type="text" autocomplete="off" formControlName="email"
+                                placeholder="{{'label.correo_placeholder' | translate }}" pInputText>
+
+                            <div *ngIf="emailControl.invalid && (emailControl.touched || emailControl.dirty)"
+                                class="p-error block">
+                                <small *ngIf="emailControl.hasError('required')">Campo Requerido</small>
+                                <small *ngIf="emailControl.hasError('email')">Ingrese un correo válido</small>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="password-container">
-                    <label>{{'label.confirmar_contrasena' | translate }}</label>
-                    <div class="login-input">
-                        <input type="password" autocomplete="off"
-                            placeholder="{{'label.contrasena_placeholder' | translate }}" pInputText>
+                    <div class="password-container">
+                        <label>{{'label.contrasena' | translate }}</label>
+                        <div class="login-input">
+                            <input type="password" autocomplete="off" formControlName="password"
+                                placeholder="{{'label.contrasena_placeholder' | translate }}" pInputText>
+                            <div *ngIf="passwordControl.invalid && (passwordControl.touched || passwordControl.dirty)"
+                                class="p-error block">
+                                <small *ngIf="passwordControl.hasError('required')">Campo Requerido</small>
+                                <small *ngIf="passwordControl.hasError('pattern')">Debes ingresar al menos 7
+                                    caracteres</small>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <button pButton pRipple type="button" icon="pi pi-chevron-right" class="p-button-rounded mr-2 mb-2" (click)="toggleFormularioRegistro()" style="width: 2.357rem;"></button>
+                    <div class="password-container">
+                        <label>{{'label.confirmar_contrasena' | translate }}</label>
+                        <div class="login-input">
+                            <input type="password" autocomplete="off" formControlName="repeated_password"
+                                placeholder="{{'label.contrasena_placeholder' | translate }}" pInputText>
+                            <div *ngIf="repeatedPasswordControl.invalid && (repeatedPasswordControl.touched || repeatedPasswordControl.dirty)"
+                                class="p-error block">
+                                <small *ngIf="repeatedPasswordControl.hasError('required')">Campo Requerido</small>
+                                <small *ngIf="repeatedPasswordControl.hasError('pattern')">Debes ingresar al menos 7
+                                    caracteres</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="primerFormularioRegistro.hasError('contrasenasIguales')" class="p-error block">
+                        <small>Las contraseñas no coinciden</small>
+                    </div>
+
+                    <button pButton pRipple type="button" icon="pi pi-chevron-right"
+                        class="p-button-rounded mt-4 mr-2 mb-2" (click)="toggleFormularioRegistro()"
+                        style="width: 2.357rem;" [disabled]="!primerFormularioRegistro.valid"></button>
+                </form>
             </div>
 
 
             <div [hidden]="!crearCuenta" class="fadein animation-duration-1000">
-                <button pButton pRipple type="button" icon="pi pi-chevron-left" class="p-button-rounded mr-2 mb-2" (click)="toggleFormularioRegistro()" style="width: 2.357rem;"></button>
-               
+                <button pButton pRipple type="button" icon="pi pi-chevron-left" class="p-button-rounded mr-2 mb-2"
+                    (click)="toggleFormularioRegistro()" style="width: 2.357rem;"></button>
+
                 <p></p>
-                <div class="username-container">
-                    <label>{{'label.nombres' | translate }}</label>
-                    <div class="login-input">
-                        <input type="text" autocomplete="off" placeholder="{{'label.nombres_placeholder' | translate }}"
-                            pInputText>
+                <form [formGroup]="segundoFormularioRegistro" (ngSubmit)="onSubmitSegundoFormularioRegistro()">
+                    <div class="username-container">
+                        <label>{{'label.nombres' | translate }}</label>
+                        <div class="login-input">
+                            <input type="text" autocomplete="off" formControlName="nombres"
+                                placeholder="{{'label.nombres_placeholder' | translate }}" pInputText>
+
+                            <div *ngIf="nombresControl.invalid && (nombresControl.touched || nombresControl.dirty)"
+                                class="p-error block">
+                                <small *ngIf="nombresControl.hasError('required')">Campo Requerido</small>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="password-container">
-                    <label>{{'label.apellidos' | translate }}</label>
-                    <div class="login-input">
-                        <input type="password" autocomplete="off"
-                            placeholder="{{'label.apellidos_placeholder' | translate }}" pInputText>
+                    <div class="password-container">
+                        <label>{{'label.apellidos' | translate }}</label>
+                        <div class="login-input">
+                            <input type="text" autocomplete="off" formControlName="apellidos"
+                                placeholder="{{'label.apellidos_placeholder' | translate }}" pInputText>
+
+
+                            <div *ngIf="apellidosControl.invalid && (apellidosControl.touched || apellidosControl.dirty)"
+                                class="p-error block">
+                                <small *ngIf="apellidosControl.hasError('required')">Campo Requerido</small>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <button pButton type="button" label="{{'label.registrarse' | translate }}"
-                        style="width: 100%;"></button>
-                </div>
+
+                    <div class="password-container">
+                        <label>{{'label.celular' | translate }}</label>
+                        <div class="login-input">
+                            <p-inputMask type="text" autocomplete="off" mask="+(99) - (999) 999-9999" formControlName="celular"
+                                placeholder="{{'label.mask_numero_celular' | translate }}" ></p-inputMask>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button pButton type="submit" label="{{'label.registrarse' | translate }}"
+                            style="width: 100%;" [disabled]="!segundoFormularioRegistro.valid"></button>
+                    </div>
+                </form>
             </div>
 
             <div class="createaccount-container">

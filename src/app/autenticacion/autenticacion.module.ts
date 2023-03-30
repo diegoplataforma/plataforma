@@ -17,6 +17,11 @@ import { RegistrarUsuarioUseCase } from './application/registrar-usuario/registr
 import { RegisterComponent } from './infraestructure/ui/components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CerrarSesionUseCase } from './application/cerrar-sesion/cerrar-sesion-use-case';
+import { IniciarSesionGoogleUseCase } from './application/iniciar-sesion-google/iniciar-sesion-google-use-case';
+import { UsuarioRepository } from '../usuario/domain/repositories/usuario-repository';
+import { UsuarioWebRepository } from '../usuario/domain/repositories/usuario-web-repository';
+import { RegistrarUsuarioBDUseCase } from '../usuario/application/registrar-usuario/registrar-usuario-use-case';
+import { RegistrarUsuarioBDConIDUseCase } from '../usuario/application/registrar-usuario-con-id/registrar-usuario-con-id-use-case';
 
 @NgModule({
   declarations: [
@@ -46,7 +51,14 @@ import { CerrarSesionUseCase } from './application/cerrar-sesion/cerrar-sesion-u
     },
     IniciarSesionUseCase,
     RegistrarUsuarioUseCase,
-    CerrarSesionUseCase
+    CerrarSesionUseCase,
+    IniciarSesionGoogleUseCase,
+    {
+      provide : UsuarioRepository,
+      useClass : UsuarioWebRepository
+    },
+    RegistrarUsuarioBDUseCase,
+    RegistrarUsuarioBDConIDUseCase
   ]
 })
 

@@ -19,24 +19,47 @@
                     <div class="login-input">
                         <input type="email" autocomplete="off" placeholder="{{'label.correo_placeholder' | translate }}"
                             pInputText formControlName="email">
+                        <div *ngIf="emailControl.invalid && (emailControl.touched || emailControl.dirty)"
+                            class="p-error block">
+                            <small *ngIf="emailControl.hasError('required')">Campo Requerido</small>
+                            <small *ngIf="emailControl.hasError('email')">Ingrese un correo válido</small>
+                        </div>
                     </div>
                 </div>
                 <div class="password-container">
                     <label>{{'label.contrasena' | translate }}</label>
                     <div class="login-input">
-                        <input type="password" autocomplete="off"
-                            placeholder="{{'label.contrasena_placeholder' | translate }}" pInputText
-                            formControlName="password">
+                        <span class="p-input-icon-right" style="display: flex;">
+                            <input #contrasenaInput type="password" pInputText
+                                placeholder="{{'label.contrasena_placeholder' | translate }}"
+                                formControlName="password" />
+                            <i class="pi"
+                                [ngClass]="{'pi-eye' : varMostrarContrasena === true, 'pi-eye-slash' : varMostrarContrasena == false}"
+                                (click)="mostrarContrasena()"></i>
+                        </span>
+                        <div *ngIf="passwordControl.invalid && (passwordControl.touched || passwordControl.dirty)"
+                            class="p-error block">
+                            <small *ngIf="passwordControl.hasError('required')">Campo Requerido</small>
+                            <small *ngIf="passwordControl.hasError('pattern')">Debes ingresar al menos 7
+                                caracteres</small>
+                        </div>
                     </div>
                 </div>
+
+
                 <div class="forgetpassword-container">
                     <a href="#" class="forget-password">{{'label.olvido_contrasena' | translate }}</a>
                 </div>
 
-                <div>
-                    <button pButton type="submit" label="{{'label.inicio_sesion' | translate }}"
-                        style="width: 100%"></button>
+
+                <div class="flex justify-content-center mb-2" style="cursor: pointer;">
+                    <img src="../../../../../../assets/layout/images/icon_google.svg" (click)="iniciarSesionConGoogle()" alt="prestige-layout" height="30px" />
                 </div>
+                <div [pTooltip]="(!formularioLogin.valid) ? 'Debes completar el formulario': null">
+                    <button pButton type="submit" label="{{'label.inicio_sesion' | translate }}" style="width: 100%"
+                        [disabled]="!formularioLogin.valid"></button>
+                </div>
+
             </form>
             <div class="createaccount-container">
                 <a routerLink="/auth/register" class="forget-password">{{'label.registrarse' | translate }}</a>
