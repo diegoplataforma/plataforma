@@ -17,6 +17,7 @@ import { RegistrarUsuarioUseCase } from './application/registrar-usuario/registr
 import { RegisterComponent } from './infraestructure/ui/components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CerrarSesionUseCase } from './application/cerrar-sesion/cerrar-sesion-use-case';
+import { IniciarSesionGoogleUseCase } from './application/iniciar-sesion-google/iniciar-sesion-google-use-case';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { CerrarSesionUseCase } from './application/cerrar-sesion/cerrar-sesion-u
     },
     IniciarSesionUseCase,
     RegistrarUsuarioUseCase,
-    CerrarSesionUseCase
+    CerrarSesionUseCase,
+    IniciarSesionGoogleUseCase
   ]
 })
 
