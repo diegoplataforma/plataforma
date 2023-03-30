@@ -115,6 +115,15 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="password-container">
+                        <label>{{'label.celular' | translate }}</label>
+                        <div class="login-input">
+                            <p-inputMask type="text" autocomplete="off" mask="+(99) - (999) 999-9999" formControlName="celular"
+                                placeholder="{{'label.mask_numero_celular' | translate }}" ></p-inputMask>
+                        </div>
+                    </div>
+
                     <div>
                         <button pButton type="submit" label="{{'label.registrarse' | translate }}"
                             style="width: 100%;" [disabled]="!segundoFormularioRegistro.valid"></button>

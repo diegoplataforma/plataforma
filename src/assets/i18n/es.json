@@ -14,6 +14,9 @@
         "apellidos_placeholder" : "Ingrese sus apellidos",
         "quien_eres" : "¿Quién eres?",
         "olvido_contrasena" : "¿Olvidó su contraseña?",
-        "login_mensaje" : "Bienvenido, por favor use este formulario para iniciar sesión."
+        "login_mensaje" : "Bienvenido, por favor use este formulario para iniciar sesión.",
+        "mask_numero_celular" : "+(99) - (999) 999-9999",
+        "celular" : "Número de celular",
+        "celular_placeholder" : "Ingrese su número de celular"
     }
 }

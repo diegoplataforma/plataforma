@@ -1,15 +1,12 @@
-import { Observable } from 'rxjs';
-import { Usuario } from '../models/usuario';
 import { Injectable } from "@angular/core";
 import { AutenticacionRepository } from './autenticacion-repository';
-import { collectionData, Firestore } from '@angular/fire/firestore';
-import { collection } from '@firebase/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import {
     Auth, createUserWithEmailAndPassword, UserCredential,
     signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider
 } from '@angular/fire/auth';
 import { CorreoYContrasena } from '../models/correoYcontrasena';
-import { RegistrarUsuario } from '../models/registrarUsuario';
+
 
 @Injectable()
 export class AutenticacionWebRepository implements AutenticacionRepository {

@@ -1,5 +1,4 @@
 import { UseCasePromiseWithNoParams } from "src/app/shared/base/use-case";
-import { Usuario } from "../../domain/models/usuario";
 import { Observable } from 'rxjs';
 import { AutenticacionRepository } from "../../domain/repositories/autenticacion-repository";
 import { Injectable } from "@angular/core";
