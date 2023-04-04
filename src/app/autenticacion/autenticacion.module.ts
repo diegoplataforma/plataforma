@@ -22,6 +22,8 @@ import { UsuarioRepository } from '../usuario/domain/repositories/usuario-reposi
 import { UsuarioWebRepository } from '../usuario/domain/repositories/usuario-web-repository';
 import { RegistrarUsuarioBDUseCase } from '../usuario/application/registrar-usuario/registrar-usuario-use-case';
 import { RegistrarUsuarioBDConIDUseCase } from '../usuario/application/registrar-usuario-con-id/registrar-usuario-con-id-use-case';
+import { CorreoVerificacionUseCase } from './application/correo-verificacion/correo-verificacion-use-case';
+import { ObtenerUsuarioPorIDUseCase } from '../usuario/application/obtener-usuario-por-id/obtener-usuario-por-id-use-case';
 
 @NgModule({
   declarations: [
@@ -53,12 +55,14 @@ import { RegistrarUsuarioBDConIDUseCase } from '../usuario/application/registrar
     RegistrarUsuarioUseCase,
     CerrarSesionUseCase,
     IniciarSesionGoogleUseCase,
+    CorreoVerificacionUseCase,
     {
       provide : UsuarioRepository,
       useClass : UsuarioWebRepository
     },
     RegistrarUsuarioBDUseCase,
-    RegistrarUsuarioBDConIDUseCase
+    RegistrarUsuarioBDConIDUseCase,
+    ObtenerUsuarioPorIDUseCase
   ]
 })
 

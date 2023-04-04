@@ -8,6 +8,21 @@
         </div>
     </div>
 
+    <p-toast key="login" [baseZIndex]="999999"></p-toast>
+
+    <p-sidebar [(visible)]="mostrarSlideVerificacionCorreo" [baseZIndex]="10000" [(closeOnEscape)]="closeOnEscapevar"
+    [(showCloseIcon)]="closeOnEscapevar" [(dismissible)]="mostrarSlideVerificacionCorreo" class="p-sidebar-lg">
+    <div class="flex flex-column">
+        <h3 style="font-weight:normal">Opps...</h3>
+        <h4>Debes verificar tu correo.</h4>
+        <p>Hemos enviado un correo de verificación a tu correo, por favor revísalo e intentanta nuevamente.</p>
+        <app-email></app-email>
+
+    </div>
+    <ng-template pTemplate="footer"><button type="button" pButton label="Ya verifiqué mi correo"
+            class="p-button-success" (click)="iniciarSesion()"></button></ng-template>
+</p-sidebar>
+
     <div class="login-card">
         <div class="top-border"></div>
         <div class="login-content">

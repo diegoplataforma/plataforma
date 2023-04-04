@@ -3,7 +3,7 @@ import { AutenticacionRepository } from './autenticacion-repository';
 import { Firestore } from '@angular/fire/firestore';
 import {
     Auth, createUserWithEmailAndPassword, UserCredential,
-    signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider
+    signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, sendEmailVerification, User
 } from '@angular/fire/auth';
 import { CorreoYContrasena } from '../models/correoYcontrasena';
 
@@ -12,6 +12,9 @@ import { CorreoYContrasena } from '../models/correoYcontrasena';
 export class AutenticacionWebRepository implements AutenticacionRepository {
 
     constructor(private firestore: Firestore, private auth: Auth) { }
+    eviarCorreoParaVerificacion(user: User): Promise<void> {
+        return sendEmailVerification(user);
+    }
 
     iniciarSesionFacebook(): Promise<UserCredential> {
         return signInWithPopup(this.auth, new FacebookAuthProvider());

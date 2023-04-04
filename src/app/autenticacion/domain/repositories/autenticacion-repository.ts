@@ -1,4 +1,4 @@
-import { UserCredential } from '@angular/fire/auth';
+import { User, UserCredential } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { CorreoYContrasena } from '../models/correoYcontrasena';
 import { RegistrarUsuario } from '../models/registrarUsuario';
@@ -15,4 +15,6 @@ export abstract class AutenticacionRepository {
     abstract iniciarSesionGoogle(): Promise<UserCredential>;
 
     abstract iniciarSesionFacebook(): Promise<UserCredential>;
+
+    abstract eviarCorreoParaVerificacion(user : User): Promise<void>;
 } 

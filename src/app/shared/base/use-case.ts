@@ -1,3 +1,4 @@
+import { DocumentReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 export interface UseCase<T, S> {
@@ -14,4 +15,8 @@ export interface UseCasePromise<T, S> {
 
 export interface UseCasePromiseWithNoParams<S> {
     execute(): Promise<S>;
+}
+
+export interface UseCaseDocumentReference<T, S>{
+    execute(param: T): DocumentReference<S>;
 }

@@ -1,6 +1,6 @@
 {
     "label": {
-        "inicio_sesion": "Iniciar Sesión XD",
+        "inicio_sesion": "Iniciar Sesión",
         "registrarse": "Crear Cuenta",
         "correo": "Correo",
         "correo_placeholder": "Ingrese su correo",
@@ -17,6 +17,7 @@
         "login_mensaje" : "Bienvenido, por favor use este formulario para iniciar sesión.",
         "mask_numero_celular" : "+(99) - (999) 999-9999",
         "celular" : "Número de celular",
-        "celular_placeholder" : "Ingrese su número de celular"
+        "celular_placeholder" : "Ingrese su número de celular",
+        "debes_verificar_tu_correo" : "Debes verificar tu correo"
     }
 }

@@ -4,25 +4,34 @@ import { RegistrarUsuarioUseCase } from 'src/app/autenticacion/application/regis
 import { CorreoYContrasena } from 'src/app/autenticacion/domain/models/correoYcontrasena';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { EXPRESIONES_REGULARES, TIPO_USUARIO } from 'src/utils/enums/enums';
+import { ERRORES_FIREBASE, EXPRESIONES_REGULARES, TIPO_USUARIO } from 'src/utils/enums/enums';
 import { contrasenasIguales } from 'src/utils/validacionesFormGroup/validacionImporteAutorizadoMenorAlImporteReclamado';
 import { RegistrarUsuarioBDUseCase } from 'src/app/usuario/application/registrar-usuario/registrar-usuario-use-case';
 import { Usuario } from 'src/app/usuario/domain/models/usuario';
 import { RegistrarUsuarioBDConIDUseCase } from 'src/app/usuario/application/registrar-usuario-con-id/registrar-usuario-con-id-use-case';
 import { UserCredential } from '@angular/fire/auth';
+import { CorreoVerificacionUseCase } from 'src/app/autenticacion/application/correo-verificacion/correo-verificacion-use-case';
+import { IniciarSesionUseCase } from 'src/app/autenticacion/application/iniciar-sesion/iniciar-sesion-use-case';
+import { MessageService } from 'primeng/api';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  providers: [MessageService]
 })
 export class RegisterComponent {
 
   primerFormularioRegistro: FormGroup;
   segundoFormularioRegistro: FormGroup;
 
-  constructor(private crearUsuario: RegistrarUsuarioUseCase, private crearUsuarioConId : RegistrarUsuarioBDConIDUseCase,
-    private registrarUsuarioDB: RegistrarUsuarioBDUseCase, private router: Router) {
+  mostrarSlideVerificacionCorreo: boolean = false;
+  closeOnEscapevar: boolean = false;
+
+  constructor(private crearUsuario: RegistrarUsuarioUseCase, private crearUsuarioConId: RegistrarUsuarioBDConIDUseCase,
+    private registrarUsuarioDB: RegistrarUsuarioBDUseCase, private router: Router, private correoVerificacionUseCase: CorreoVerificacionUseCase,
+    private iniciarSesionUseCase: IniciarSesionUseCase, private service: MessageService) {
     this.primerFormularioRegistro = new FormGroup({
       tipo: new FormControl('oferta', [Validators.required]),
       email: new FormControl('alejo@gmail.com', [Validators.required, Validators.email]),
@@ -34,7 +43,7 @@ export class RegisterComponent {
     this.segundoFormularioRegistro = new FormGroup({
       nombres: new FormControl(null, [Validators.required]),
       apellidos: new FormControl(null, [Validators.required]),
-      celular : new FormControl(null)
+      celular: new FormControl(null)
     });
   }
 
@@ -42,12 +51,38 @@ export class RegisterComponent {
   crearCuenta: boolean = false;
 
   ngOnInit(): void {
-
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user && user.emailVerified) {
+        this.router.navigate(['/']);
+      } else {
+        // User is signed out
+      }
+    });
   }
 
 
   toggleFormularioRegistro() {
     this.crearCuenta = !this.crearCuenta;
+  }
+
+  iniciarSesion() {
+    let correoYcontrasena: CorreoYContrasena = this.crearObjetoCorreoYContrasena();
+    this.iniciarSesionUseCase.execute(correoYcontrasena).then(response => {
+      console.log(response);
+      if (response.user.emailVerified) {
+        this.router.navigate(['/']);
+      } else {
+        this.correoVerificacionUseCase.execute(response.user)
+          .then((resp: any) => {
+            this.mostrarSlideVerificacionCorreo = true;
+          }).catch(error => {
+            this.validacionError(error);
+          })
+      }
+    }).catch(error => {
+      this.validacionError(error);
+    });
   }
 
   onSubmitSegundoFormularioRegistro() {
@@ -60,14 +95,21 @@ export class RegisterComponent {
       .then(response => {
         console.log("respose", response);
         let usuario: Usuario = this.crearObjetoUsuario(response);
-        this.crearUsuarioConId.execute(usuario).then(resp => {
-          console.log(resp);
-          this.router.navigate(['/']);
-        }).catch(error => {
-          console.log(error);
-        });
+        this.crearUsuarioConId.execute(usuario)
+          .then(resp => {
+            console.log(resp);
+
+            this.correoVerificacionUseCase.execute(response.user)
+              .then((resp: any) => {
+                this.mostrarSlideVerificacionCorreo = true;
+              }).catch(error => {
+                this.validacionError(error);
+              })
+          }).catch(error => {
+            this.validacionError(error);
+          });
       }).catch(error => {
-        console.log(error);
+        this.validacionError(error);
       })
   }
 
@@ -89,9 +131,22 @@ export class RegisterComponent {
       apellidos: this.apellidosControl.value,
       celular: this.celularControl.value !== null ? this.celularControl.value : null,
       perfilId: Date.now().toString(12),
-      tipoUsuarioId: this.tipoControl.value === "oferta" ? TIPO_USUARIO.OFERTA_ID : TIPO_USUARIO.DEMANDA_ID
+      tipoUsuarioId: this.tipoControl.value === TIPO_USUARIO.OFERTA ? TIPO_USUARIO.OFERTA_ID : TIPO_USUARIO.DEMANDA_ID
     };
     return usuario;
+  }
+
+  private validacionError(error: any) {
+    if (ERRORES_FIREBASE.AUTH_USER_NOT_FOUND === Object.values(error)[0]) {
+      this.service.add({ key: 'login', severity: 'warn', summary: 'Alerta', detail: 'No existe el usuario, verifique sus datos.' });
+    } else if (ERRORES_FIREBASE.AUTH_TOO_MANY_REQUEST === Object.values(error)[0]) {
+      this.service.add({ key: 'login', severity: 'error', summary: 'Alerta', detail: 'Muchas peticiones para el servidor de autenticación' });
+    } else if (ERRORES_FIREBASE.AUTH_CLOSED_BY_USER === Object.values(error)[0]) {
+      this.service.add({ key: 'login', severity: 'warn', summary: 'Alerta', detail: 'Cerraste el PopUp' });
+    } else {
+      this.service.add({ key: 'login', severity: 'warn', summary: 'Alerta', detail: 'Error desconocido' });
+      console.log(error);
+    }
   }
 
   /**
@@ -124,5 +179,4 @@ export class RegisterComponent {
   get celularControl(): FormControl {
     return this.segundoFormularioRegistro.get("celular") as FormControl;
   }
-
 }

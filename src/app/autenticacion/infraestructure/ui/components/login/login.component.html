@@ -8,6 +8,48 @@
         </div>
     </div>
 
+    <p-toast key="login" [baseZIndex]="999999"></p-toast>
+
+    <p-sidebar [(visible)]="mostrarSlideVerificacionCorreo" [baseZIndex]="10000" [(closeOnEscape)]="closeOnEscapevar"
+        [(showCloseIcon)]="closeOnEscapevar" [(dismissible)]="mostrarSlideVerificacionCorreo" class="p-sidebar-lg">
+        <div class="flex flex-column">
+            <h3 style="font-weight:normal">Opps...</h3>
+            <h4>Debes verificar tu correo.</h4>
+            <p>Hemos enviado un correo de verificación a tu correo, por favor revísalo e intentanta nuevamente.</p>
+            <app-email></app-email>
+
+        </div>
+        <ng-template pTemplate="footer"><button type="button" pButton label="Ya verifiqué mi correo"
+                class="p-button-success" (click)="onSubmit()"></button></ng-template>
+    </p-sidebar>
+
+    <p-dialog header="¿Quién eres?" [(visible)]="mostrarDialogoTipoUsuario" modal="modal" showEffect="fade"
+        [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
+        <p class="line-height-3 m-0">
+            Selecciona que tipo de usuario eres para continuar!
+        </p>
+        <div class="grid mt-4">
+            <div class="col-6">
+                <div class="field-radiobutton">
+                    <p-radioButton name="tipo" value="oferta" [(ngModel)]="valorTipoUsuario"
+                        id="oferta"></p-radioButton>
+                    <label for="oferta" style="margin-bottom: 0px;">Oferta</label>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="field-radiobutton">
+                    <p-radioButton name="tipo" value="demanda" [(ngModel)]="valorTipoUsuario"
+                        id="demanda"></p-radioButton>
+                    <label for="demanda" style="margin-bottom: 0px;">Demanda</label>
+                </div>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton icon="pi pi-check" (click)="registrarUsuario()" label="Continuar"
+                class="p-button-outlined"></button>
+        </ng-template>
+    </p-dialog>
+
     <div class="login-card">
         <div class="top-border"></div>
         <div class="login-content fadein animation-duration-1000">
@@ -48,12 +90,12 @@
 
 
                 <div class="forgetpassword-container">
-                    <a href="#" class="forget-password">{{'label.olvido_contrasena' | translate }}</a>
+                    <a class="forget-password">{{'label.olvido_contrasena' | translate }}</a>
                 </div>
 
-
                 <div class="flex justify-content-center mb-2" style="cursor: pointer;">
-                    <img src="../../../../../../assets/layout/images/icon_google.svg" (click)="iniciarSesionConGoogle()" alt="prestige-layout" height="30px" />
+                    <img src="../../../../../../assets/layout/images/icon_google.svg" (click)="iniciarSesionConGoogle()"
+                        alt="prestige-layout" height="30px" />
                 </div>
                 <div [pTooltip]="(!formularioLogin.valid) ? 'Debes completar el formulario': null">
                     <button pButton type="submit" label="{{'label.inicio_sesion' | translate }}" style="width: 100%"

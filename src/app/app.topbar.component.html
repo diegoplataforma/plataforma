@@ -56,18 +56,18 @@
         <li #profile class="user-profile" role="menuitem" [ngClass]="{'active-topmenuitem':app.activeTopbarItem === profile}">
             <a href="#" (click)="app.onTopbarItemClick($event,profile)">
                 <div class="user-profile-info profile-link">
-                    <span class="user-profile-name">Ava Gregoraci</span>
-                    <span class="user-profile-role">Design Ops</span>
+                    <span class="user-profile-name">{{nombreYApellido}}</span>
+                    <span class="user-profile-role">{{tipoUsuarioOfertaODemanda}}</span>
                 </div>
-                <img class="logo" src="assets/layout/images/avatar/avatar-ava.jpg" alt="prestige-layout" />
+                <img class="logo" src="{{fotoUrl}}" alt="prestige-layout" />
             </a>
             <ul class="fadeInDown">
                 <li class="profile-detail">
                     <div class="user-profile-info">
-                        <img class="logo" src="assets/layout/images/avatar/avatar-ava.jpg" alt="prestige-layout" />
+                        <img class="logo" src="{{fotoUrl}}" alt="prestige-layout" />
                         <div class="profile-info">
-                            <span class="user-profile-name">Ava Gregoraci</span>
-                            <span class="user-profile-role">Design Ops</span>
+                            <span class="user-profile-name">{{nombreYApellido}}</span>
+                            <span class="user-profile-role">{{tipoUsuarioOfertaODemanda}}</span>
                         </div>
                         <a href="#" class="profile-detail-icon" (click)="app.onTopbarSubItemClick($event)">
                             <i (click)="salir()" class="pi pi-sign-out"></i>
