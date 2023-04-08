@@ -1,4 +1,4 @@
-import { Usuario } from '../models/usuario';
+import { Usuario } from '../../../shared/domain/models/usuario';
 import { Observable } from 'rxjs';
 import { DocumentData, DocumentReference } from '@angular/fire/firestore';
 import { User } from '@angular/fire/auth';

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { collection, Firestore, addDoc, DocumentReference, setDoc, doc, DocumentData } from '@angular/fire/firestore';
-import { Usuario } from "../models/usuario";
+import { Usuario } from "../../../shared/domain/models/usuario";
 import { UsuarioRepository } from "./usuario-repository";
 import { Observable } from 'rxjs';
 import { FIRESTORE_TABLES } from "src/utils/enums/enums";

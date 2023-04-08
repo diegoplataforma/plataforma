@@ -7,7 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ERRORES_FIREBASE, EXPRESIONES_REGULARES, TIPO_USUARIO } from 'src/utils/enums/enums';
 import { contrasenasIguales } from 'src/utils/validacionesFormGroup/validacionImporteAutorizadoMenorAlImporteReclamado';
 import { RegistrarUsuarioBDUseCase } from 'src/app/usuario/application/registrar-usuario/registrar-usuario-use-case';
-import { Usuario } from 'src/app/usuario/domain/models/usuario';
+import { Usuario } from 'src/app/shared/domain/models/usuario';
 import { RegistrarUsuarioBDConIDUseCase } from 'src/app/usuario/application/registrar-usuario-con-id/registrar-usuario-con-id-use-case';
 import { UserCredential } from '@angular/fire/auth';
 import { CorreoVerificacionUseCase } from 'src/app/autenticacion/application/correo-verificacion/correo-verificacion-use-case';

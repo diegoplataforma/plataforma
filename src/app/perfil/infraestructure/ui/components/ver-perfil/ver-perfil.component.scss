@@ -1,6 +1,7 @@
 .encabezado {
-    display: -ms-flexbox;
+    flex-wrap: wrap;
     display: flex;
+    flex-direction: row;
     -ms-flex-pack: justify;
     justify-content: start;
     border-bottom: 1px solid #46494900;
@@ -9,7 +10,7 @@
     padding: 2rem;
 }
 .compania-titulo {
-    font-size: 3rem;
+    font-size: 15px;
     font-weight: bold;
 }
 .compania-logo{

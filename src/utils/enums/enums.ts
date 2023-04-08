@@ -17,7 +17,8 @@ export enum TIPO_USUARIO {
 
 export enum FIRESTORE_TABLES {
     USUARIOS = "usuarios",
-    TIPO_USUARIOS = "tipo_usuario"
+    TIPO_USUARIOS = "tipo_usuario",
+    PERFILES = "perfiles"
 }
 
 export enum ERRORES_FIREBASE {

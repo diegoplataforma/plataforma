@@ -9,11 +9,9 @@
                                 <img id="compania-logo" class="compania-logo" src="assets/layout/images/logo.svg"
                                     alt="compania-logo" />
                             </div>
-                            <div class="flex flex-column justify-content-evenly ml-5"
-                                style="padding: 5px; width: 100%; ">
-                                <div>
+                            <div style="flex-grow:1" class="flex align-items-center ml-3">
+                                    <div class="compania-titulo" *ngIf="!this.perfil.nombre">Ninguno</div>
                                     <div class="compania-titulo">{{ this.perfil.nombre | uppercase }}</div>
-                                </div>
                             </div>
                             <div>
                                 <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="this.editarPerfil()"></button>
@@ -21,16 +19,17 @@
                         </div>
                         <div class="grid mt-3" style="border-bottom: 1px solid rgb(212, 212, 212);">
                             <div class="col-12 md:col-4" style="height:350px">
-                                <p-galleria [(value)]="images" [numVisible]="5" [autoPlay] = "true" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%'}">
+                                <p-galleria *ngIf="this.perfil.imagenes?.length > 0" [(value)]="this.perfil.imagenes" [numVisible]="5" [autoPlay] = "true" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%'}">
                                     <ng-template pTemplate="item" let-item>
-                                        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" height="300px" />
+                                        <img [src]="item.url" style="width: 100%; display: block;" height="300px" />
                                     </ng-template>
                                 </p-galleria>
+                                <img *ngIf="this.perfil.imagenes?.length == 0" src="assets/layout/images/predeterminadas/drop.png" style="width: 100%; display: block;" height="300px" />
                             </div>
                             <div class="col-12 md:col-8 flex flex-column justify-content-evenly">
                                 <div>
-                                    <h5><b>Somos una empresa</b> {{ this.perfil.quienesSomos }} </h5>
-                                    <h5><b>Buscamos</b> {{ this.perfil.buscamos }}</h5>
+                                    <h5>Somos una empresa <b>{{ this.perfil.quienesSomos }}</b> <b *ngIf="!this.perfil.quienesSomos"> sin información</b> </h5>
+                                    <h5>Buscamos <b>{{ this.perfil.buscamos }}</b> <b *ngIf="!this.perfil.buscamos"> sin información</b></h5>
                                 </div>
                                 <div>
                                     <h5><b>Contactanos</b></h5>

@@ -2,7 +2,7 @@ import { UseCasePromise } from "src/app/shared/base/use-case";
 import { Observable } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { UserCredential } from "@angular/fire/auth";
-import { Usuario } from "../../domain/models/usuario";
+import { Usuario } from "../../../shared/domain/models/usuario";
 import { DocumentReference } from "@angular/fire/firestore";
 import { UsuarioRepository } from "../../domain/repositories/usuario-repository";
 

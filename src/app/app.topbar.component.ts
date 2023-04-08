@@ -6,7 +6,8 @@ import { getAuth, onAuthStateChanged, User, UserInfo } from "firebase/auth";
 import { PROVIDER_ID, TIPO_USUARIO } from 'src/utils/enums/enums';
 import { ObtenerUsuarioPorIDUseCase } from './usuario/application/obtener-usuario-por-id/obtener-usuario-por-id-use-case';
 import { getDoc } from '@firebase/firestore';
-import { Usuario } from './usuario/domain/models/usuario';
+import { Usuario } from './shared/domain/models/usuario';
+import { LoginRepository } from './shared/domain/repositories/login-repository';
 
 @Component({
   selector: 'app-topbar',
@@ -21,7 +22,12 @@ export class AppTopBarComponent {
   nombreYApellido: string = "";
   tipoUsuarioOfertaODemanda: string = "";
 
-  constructor(public app: AppMainComponent, private cerrarSesion: CerrarSesionUseCase, private router: Router, private obtenerUsuarioPorIDUseCase: ObtenerUsuarioPorIDUseCase) { }
+  constructor(
+    public app: AppMainComponent, 
+    private cerrarSesion: CerrarSesionUseCase, 
+    private router: Router, 
+    private obtenerUsuarioPorIDUseCase: ObtenerUsuarioPorIDUseCase,
+    private loginRepository: LoginRepository) { }
 
   ngOnInit(): void {
     const auth = getAuth();
@@ -35,6 +41,8 @@ export class AppTopBarComponent {
 
         if (docSnap.exists()) {
           this.usuarioDB = docSnap.data() as Usuario;
+          this.loginRepository.setInfoUsuarioLogueado(this.usuarioDB)
+          console.log("USUARIO ", this.usuarioDB.perfilId)
           this.fotoUrl = this.obtenerFoto();
           this.nombreYApellido = this.obtenerNombreYApellido();
           this.tipoUsuarioOfertaODemanda = this.tipoUsuario();
