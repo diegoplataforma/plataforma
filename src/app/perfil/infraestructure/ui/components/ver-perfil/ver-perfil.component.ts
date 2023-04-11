@@ -3,12 +3,15 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { EditarPerfilComponent } from '../editar-perfil/editar-perfil.component';
 import { Perfil } from '../../../../domain/models/perfil';
 import { ObtenerPerfilPorIdUseCase } from '../../../../application/obtener-perfil-por-id/obtener-perfil-por-id-use-case';
-import { DocumentData } from '@firebase/firestore';
+import { DocumentData, getDoc } from '@firebase/firestore';
 import { ObtenerImagenesPerfilIdUseCase } from '../../../../application/obtener-imagenes-perfil-id/obtener-imagenes-perfil-id';
 import { ListResult } from '@angular/fire/storage';
 import { getDownloadURL } from '@firebase/storage';
 import { ImagenPerfil } from '../../../../domain/models/imagenPerfil';
 import { LoginRepository } from '../../../../../shared/domain/repositories/login-repository';
+import { Usuario } from '../../../../../shared/domain/models/usuario';
+import { ObtenerUsuarioPorIDUseCase } from '../../../../../usuario/application/obtener-usuario-por-id/obtener-usuario-por-id-use-case';
+import { getAuth, onAuthStateChanged } from '@firebase/auth';
 @Component({
     selector: 'app-ver-perfil',
     templateUrl: './ver-perfil.component.html',
@@ -36,15 +39,29 @@ export class VerPerfilComponent implements OnInit {
     constructor(private dialogService: DialogService,
         private obtenerPerfilPorIdUseCase: ObtenerPerfilPorIdUseCase,
         private obtenerImagenesPerfilIdUseCase:ObtenerImagenesPerfilIdUseCase,
-        private loginRepository: LoginRepository) { }
+        private loginRepository: LoginRepository,
+        private obtenerUsuarioPorIDUseCase:ObtenerUsuarioPorIDUseCase) { }
 
     ngOnInit(): void {
-        this.perfil.idPerfil = this.loginRepository.obtenerInfoUsuarioLogueado()?.perfilId
-        this.obtenerPerfilDelUsuarioLogueado()
+        const auth = getAuth();
+        onAuthStateChanged(auth, async (user) => {
+          if (user) {
+            let documentReferenceUserDB = this.obtenerUsuarioPorIDUseCase.execute(user.uid)
+            const docSnap = await getDoc(documentReferenceUserDB);
+    
+            if (docSnap.exists()) {
+                let usuario = docSnap.data() as Usuario;
+                this.perfil.idPerfil = usuario.perfilId
+                this.obtenerPerfilDelUsuarioLogueado();
+            } else {
+              console.log("No such document!");
+            }
+          }
+        });
     }
     obtenerPerfilDelUsuarioLogueado() {
+        console.log("ID PERFIL", this.perfil.idPerfil);
         this.obtenerPerfilPorIdUseCase.execute(this.perfil.idPerfil).subscribe(doc => {
-            
             this.perfil = this.mapperDocumentDataPerfil(doc[0])
             this.obtenerImagenesPerfil(this.perfil.idPerfil)
         })
@@ -82,13 +99,23 @@ export class VerPerfilComponent implements OnInit {
     }
     //TODO COMPLETAR MAPPER
     mapperDocumentDataPerfil(doc:DocumentData): Perfil {
-        return {
-            buscamos: doc.buscamos,
-            idPerfil: doc.idPerfil,
-            nombre: doc.nombre,
-            quienesSomos: doc.quienesSomos,
-            imagenes : []
-        } as Perfil
+        if (doc) {
+            return {
+                buscamos: doc.buscamos,
+                idPerfil: doc.idPerfil,
+                nombre: doc.nombre,
+                quienesSomos: doc.quienesSomos,
+                imagenes : []
+            } as Perfil
+        } else {
+            return {
+                buscamos: null,
+                idPerfil: this.perfil.idPerfil,
+                nombre: null,
+                quienesSomos: null,
+                imagenes : []
+            } as Perfil
+        }
     }
 
 }

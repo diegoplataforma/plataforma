@@ -16,6 +16,8 @@ export class PerfilWebRepository implements PerfilRepository {
     }
     registrarPerfil(perfil: Perfil): Promise<void> {
         let perfilSinReferencia = Object.assign({}, perfil)
+        //LIMPIAR IMAGENES
+        console.log("ID PERFIL PERFIL ", perfil.idPerfil);
         perfilSinReferencia.imagenes = []
         return setDoc(doc(this.firestore, FIRESTORE_TABLES.PERFILES, perfil.idPerfil), perfilSinReferencia);
     }

@@ -60,7 +60,7 @@ export class EditarPerfilComponent implements OnInit {
     agregarImagenArchivo($event: any) {
         let archivos = $event.target.files
         let reader = new FileReader();
-        if ("image/png" == archivos[0].type) {
+        if ("image/png" == archivos[0].type || "image/jpg" == archivos[0].type) {
             reader.readAsDataURL(archivos[0]);
             reader.onloadend = () => {
                 let imagen = {} as ImagenPerfil
@@ -72,7 +72,7 @@ export class EditarPerfilComponent implements OnInit {
         } else {
             this.messageService.add({
                 severity: "error",
-                detail: "Debes agregar un archivo png"
+                detail: "Debes agregar un archivo png o jpg"
             })
         }
     }

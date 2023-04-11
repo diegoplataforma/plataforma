@@ -1,15 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../models/usuario';
 import { LoginRepository } from './login-repository';
-@Injectable()
+import { Observable, Subject } from 'rxjs';
+@Injectable({
+    providedIn: 'root'
+})
 export class LoginWebRepository implements LoginRepository {
 
-    private usuario: Usuario
+    private usuario$: Subject<Usuario> = new Subject();
+    private usuario: Usuario;
 
-    obtenerInfoUsuarioLogueado(): Usuario {
-        return this.usuario 
+    constructor() {
+        console.log("CONSTRUCTOR SUBJECT ")
+    }
+    obtenerInfoUsuarioLogueado(): Subject<Usuario> {
+        return this.usuario$;
     }
     setInfoUsuarioLogueado(usuario: Usuario) {
+        console.log("usuario ", usuario);
         this.usuario = usuario
+        this.usuario$.next(this.usuario);
     }
 }
